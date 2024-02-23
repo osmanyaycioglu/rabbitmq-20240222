@@ -11,7 +11,9 @@
   <url>http://maven.apache.org</url>
 
   <modules>
-    <module>spring-consumer</module>
+    <module>spring-consumer-sms</module>
+    <module>spring-consumer-email</module>
+    <module>spring-producer</module>
   </modules>
 
   <properties>
