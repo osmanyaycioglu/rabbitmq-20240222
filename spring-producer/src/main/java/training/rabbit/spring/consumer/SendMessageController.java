@@ -15,13 +15,35 @@ public class SendMessageController {
     private RabbitTemplate rabbitTemplate;
 
     @PostMapping("/sms")
-    public void sendSms(@RequestParam String message){
-        rabbitTemplate.convertAndSend("message-send", "send-sms",message);
+    public void sendSms(@RequestParam String message) {
+        rabbitTemplate.convertAndSend("message-send",
+                                      "send-sms",
+                                      message);
     }
 
     @PostMapping("/email")
-    public void sendEmail(@RequestParam String message){
-        rabbitTemplate.convertAndSend("message-send", "send-email",message);
+    public void sendEmail(@RequestParam String message) {
+        rabbitTemplate.convertAndSend("message-send",
+                                      "send-email",
+                                      message);
+    }
+
+    @PostMapping("/topic/sms")
+    public String sendTopicSms(@RequestParam String message,
+                               @RequestParam String key) {
+        rabbitTemplate.convertAndSend("topic-message-send",
+                                      key,
+                                      message);
+        return "OK";
+    }
+
+    @PostMapping("/topic/email")
+    public String sendTopicEmail(@RequestParam String message,
+                                 @RequestParam String key) {
+        rabbitTemplate.convertAndSend("topic-message-send",
+                                      key,
+                                      message);
+        return "OK";
     }
 
 }
